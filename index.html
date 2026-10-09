@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine Question</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+body {
+  padding-inline: 16px;
+  color: #3a2a2a;
+  margin: 0;
+  min-height: 100vh;
+  background: #f8d7da;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  overflow-x: hidden;
+}
+html { overflow-x: hidden;
+}
+.container {
+  text-align: center;
+  padding-top: 60px;
+}
+h1 {
+  color: #b3122e;
+  font-size: 28px;
+  margin-bottom: 18px;
+}
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+button {
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 4px;
+  font-family: inherit;
+}
+.yes-button {
+  background: #3a9d3f;
+  font-size: 16px;
+  padding: .3em .6em;
+  transition: font-size .25s ease;
+}
+.yes-button:hover { background: #2f8634; }
+.no-button {
+  background: #e02b2b;
+  font-size: 14px;
+  padding: 6px 12px;
+  white-space: nowrap;
+}
+.no-button:hover { background: #c41f1f; }
+
+.mochi { width: 170px; display: block; margin: 0 auto; }
+.mochi .heart { animation: beat 1s ease-in-out infinite; transform-origin: 100px 36px; }
+.mochi.wiggle { animation: wiggle .4s ease; }
+@keyframes beat { 50% { transform: scale(1.15); } }
+@keyframes wiggle {
+  25% { transform: rotate(-6deg); }
+  75% { transform: rotate(6deg); }
+}
+
+/* Halaman Yes */
+.hug { width: 260px; }
+.float-heart {
+  position: fixed;
+  bottom: -40px;
+  font-size: 24px;
+  pointer-events: none;
+  animation: rise linear forwards;
+}
+@keyframes rise {
+  to { transform: translateY(-110vh) rotate(25deg); opacity: 0; }
+}
+
+.yes-button{max-width:none}
+.buttons{flex-wrap:nowrap}
+button:focus-visible{outline:3px solid #b3122e;outline-offset:2px}
+@media (prefers-reduced-motion: reduce){.mochi .heart,.mochi.wiggle,.float-heart{animation:none}}
+</style>
+</head>
+<body>
+<div class="container" id="ask">
+  <h1>Will you be my Valentine?</h1>
+  <div class="buttons">
+    <button class="yes-button" id="yes-btn" onclick="handleYesClick()">Yes</button>
+    <button class="no-button" id="no-btn" onclick="handleNoClick()">No</button>
+  </div>
+  <svg class="mochi" id="mochi" viewBox="0 0 200 170" aria-hidden="true">
+      <path class="heart" d="M100 30 C92 18 76 22 80 36 C83 44 100 52 100 52 C100 52 117 44 120 36 C124 22 108 18 100 30Z" fill="#ff8fb1"/>
+      <ellipse cx="100" cy="158" rx="70" ry="8" fill="#000" opacity=".08"/>
+      <path d="M30 150 C20 100 45 55 100 55 C155 55 180 100 170 150 Z" fill="#fff4ea" stroke="#3a2a2a" stroke-width="4" stroke-linejoin="round"/>
+      <ellipse cx="62" cy="118" rx="12" ry="7" fill="#ffb3c6"/>
+      <ellipse cx="138" cy="118" rx="12" ry="7" fill="#ffb3c6"/>
+      <g id="face"></g>
+    </svg>
+</div>
+<div class="container" id="yay" hidden>
+  <h1>Knew you would say yes!</h1>
+  <svg class="hug" viewBox="0 0 260 190" aria-hidden="true">
+      <path d="M40 40 C34 30 20 34 24 46 C27 54 40 60 40 60 C40 60 53 54 56 46 C60 34 46 30 40 40Z" fill="#ff5a7a"/>
+      <path d="M220 28 C214 18 200 22 204 34 C207 42 220 48 220 48 C220 48 233 42 236 34 C240 22 226 18 220 28Z" fill="#ff5a7a"/>
+      <ellipse cx="130" cy="178" rx="100" ry="8" fill="#000" opacity=".08"/>
+      <!-- mochi kiri (krem) -->
+      <path d="M30 172 C20 120 45 80 98 80 C150 80 160 120 150 172 Z" fill="#fff4ea" stroke="#3a2a2a" stroke-width="4" stroke-linejoin="round"/>
+      <ellipse cx="66" cy="138" rx="10" ry="6" fill="#ffb3c6"/>
+      <path d="M60 120 Q68 112 76 120" stroke="#3a2a2a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M96 120 Q104 112 112 120" stroke="#3a2a2a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M78 132 Q86 142 94 132" stroke="#3a2a2a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <!-- mochi kanan (pink) -->
+      <path d="M112 172 C104 124 130 88 178 88 C226 88 246 124 236 172 Z" fill="#ffd1dc" stroke="#3a2a2a" stroke-width="4" stroke-linejoin="round"/>
+      <ellipse cx="206" cy="144" rx="10" ry="6" fill="#ff8fb1"/>
+      <path d="M150 126 Q158 118 166 126" stroke="#3a2a2a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M186 126 Q194 118 202 126" stroke="#3a2a2a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M168 138 Q176 148 184 138" stroke="#3a2a2a" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <!-- lengan pelukan -->
+      <path d="M120 150 Q140 140 158 152" stroke="#3a2a2a" stroke-width="4" fill="#fff4ea" stroke-linecap="round"/>
+      <path d="M140 160 Q122 150 104 160" stroke="#3a2a2a" stroke-width="4" fill="#ffd1dc" stroke-linecap="round"/>
+    </svg>
+</div>
+<script>
+const messages = [
+  "Are you sure?",
+  "Really sure??",
+  "Are you positive?",
+  "Pookie please...",
+  "Just think about it!",
+  "If you say no, I will be really sad...",
+  "I will be very sad...",
+  "I will be very very very sad...",
+  "Ok fine, I will stop asking...",
+  "Just kidding, say yes please! ❤️",
+];
+
+// Ekspresi wajah maskot (SVG)
+const faces = {
+  happy: `<circle cx="78" cy="100" r="6" fill="#3a2a2a"/><circle cx="122" cy="100" r="6" fill="#3a2a2a"/>
+          <path d="M90 112 Q100 124 110 112" stroke="#3a2a2a" stroke-width="4" fill="none" stroke-linecap="round"/>`,
+  squint: `<path d="M68 94 L84 101 L68 108" stroke="#3a2a2a" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+           <path d="M132 94 L116 101 L132 108" stroke="#3a2a2a" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+           <path d="M88 114 Q94 120 100 114 Q106 120 112 114" stroke="#3a2a2a" stroke-width="4" fill="none" stroke-linecap="round"/>`,
+  sad: `<path d="M70 104 Q78 96 86 104" stroke="#3a2a2a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M114 104 Q122 96 130 104" stroke="#3a2a2a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M90 122 Q100 112 110 122" stroke="#3a2a2a" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M80 110 Q76 120 80 124 Q84 120 80 110Z" fill="#7cc4ff"/>`,
+  open: `<circle cx="78" cy="100" r="6" fill="#3a2a2a"/><circle cx="122" cy="100" r="6" fill="#3a2a2a"/>
+         <path d="M90 110 Q100 132 110 110 Z" fill="#e0475f" stroke="#3a2a2a" stroke-width="3" stroke-linejoin="round"/>`,
+};
+const faceCycle = ["squint", "open", "sad", "squint", "sad"];
+
+let messageIndex = 0;
+const faceEl = document.getElementById("face");
+const mochi = document.getElementById("mochi");
+faceEl.innerHTML = faces.happy;
+
+function handleNoClick() {
+  const noButton = document.querySelector(".no-button");
+  const yesButton = document.querySelector(".yes-button");
+
+  noButton.textContent = messages[messageIndex];
+  messageIndex = (messageIndex + 1) % messages.length;
+
+  const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+  yesButton.style.fontSize = `${currentSize * 1.5}px`;
+
+  faceEl.innerHTML = faces[faceCycle[messageIndex % faceCycle.length]];
+  mochi.classList.remove("wiggle");
+  void mochi.offsetWidth; // restart animasi
+  mochi.classList.add("wiggle");
+}
+
+function handleYesClick() {
+  document.getElementById("ask").hidden = true;
+  document.getElementById("yay").hidden = false;
+  window.scrollTo(0, 0);
+  startHearts();
+}
+
+function startHearts() {
+    const hearts = ["❤️", "💕", "💖", "💗"];
+    setInterval(() => {
+      const h = document.createElement("span");
+      h.className = "float-heart";
+      h.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.animationDuration = 3 + Math.random() * 3 + "s";
+      document.body.appendChild(h);
+      setTimeout(() => h.remove(), 6500);
+    }, 300);
+  }
+</script>
+</body>
+</html>
